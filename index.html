@@ -155,6 +155,43 @@
     <!-- ============ 项目一 ============ -->
     <article class="card">
       <div class="card-top">
+        <h3>企业知识库智能客服系统
+          <small>基于 LangChain4j 的 RAG 问答</small>
+        </h3>
+        <div class="period">2026.02 - 至今</div>
+      </div>
+
+      <p class="desc">
+        把企业内部散落的 PDF / Word / TXT / Markdown 变成能对话、会溯源、答不上来会转人工的客服知识库。不做套壳，重点解决 RAG 落地的三个真问题：文档怎么切才不丢语义、检索不准时怎么不胡说、大模型调用太贵怎么办。
+      </p>
+
+      <div class="stack">
+        <span class="tag">Spring Boot</span>
+        <span class="tag">Java 17</span>
+        <span class="tag alt">LangChain4j</span>
+        <span class="tag alt">Chroma</span>
+        <span class="tag">火山引擎方舟</span>
+        <span class="tag">Apache Tika</span>
+        <span class="tag alt">SSE / WebSocket</span>
+        <span class="tag">JWT</span>
+      </div>
+
+      <ul class="hl">
+        <li><b>文档治理</b>：Tika 统一解析多格式；<code>DocumentSplitters.recursive(500, 50)</code> 递归切片，500 字保语义段落完整、50 字重叠保住跨段指代；同名文档按 metadata 先删旧向量再入库，知识库不越滚越脏。</li>
+        <li><b>四道闸门防胡说</b>：寒暄词表短路 → 指代消解改写独立问题 → Chroma Top3 且相似度 ≥ 0.3 才放行 → Prompt 明确「仅依据片段回答」。检索没命中就走兜底话术，绝不硬答。</li>
+        <li><b>三级缓存降本</b>：改写 30min / 检索 1h / 答案 1h，按各层时效性分别设 TTL。高频重复问题直接命中答案缓存，省掉 embedding + 检索 + 生成整条链路。</li>
+        <li><b>流式与可靠推送</b>：SSE 逐字推送把首字延迟从数秒降到几百毫秒；人工回复走 WebSocket，直推失败重试 3 次后落 Redis 补偿队列，客户端重连补发。</li>
+        <li><b>工单闭环</b>：状态机「待处理 → 处理中 → 已完成」，认领时校验状态防两个客服抢同一单；JWT + 拦截器统一鉴权，验证码失败次数计数防爆破。</li>
+      </ul>
+
+      <div class="links">
+        <a class="btn primary" href="https://github.com/1428001760/rag-customer-service" target="_blank" rel="noopener">查看源码 →</a>
+        <a class="btn ghost" href="https://github.com/1428001760/rag-customer-service#readme" target="_blank" rel="noopener">设计文档</a>
+      </div>
+    </article>
+    <!-- ============ 项目二 ============ -->
+    <article class="card">
+      <div class="card-top">
         <h3>巷往生活服务平台
           <small>本地生活 O2O 高并发后端</small>
         </h3>
@@ -190,43 +227,6 @@
       </div>
     </article>
 
-    <!-- ============ 项目二 ============ -->
-    <article class="card">
-      <div class="card-top">
-        <h3>企业知识库智能客服系统
-          <small>基于 LangChain4j 的 RAG 问答</small>
-        </h3>
-        <div class="period">2026.02 - 至今</div>
-      </div>
-
-      <p class="desc">
-        把企业内部散落的 PDF / Word / TXT / Markdown 变成能对话、会溯源、答不上来会转人工的客服知识库。不做套壳，重点解决 RAG 落地的三个真问题：文档怎么切才不丢语义、检索不准时怎么不胡说、大模型调用太贵怎么办。
-      </p>
-
-      <div class="stack">
-        <span class="tag">Spring Boot</span>
-        <span class="tag">Java 17</span>
-        <span class="tag alt">LangChain4j</span>
-        <span class="tag alt">Chroma</span>
-        <span class="tag">火山引擎方舟</span>
-        <span class="tag">Apache Tika</span>
-        <span class="tag alt">SSE / WebSocket</span>
-        <span class="tag">JWT</span>
-      </div>
-
-      <ul class="hl">
-        <li><b>文档治理</b>：Tika 统一解析多格式；<code>DocumentSplitters.recursive(500, 50)</code> 递归切片，500 字保语义段落完整、50 字重叠保住跨段指代；同名文档按 metadata 先删旧向量再入库，知识库不越滚越脏。</li>
-        <li><b>四道闸门防胡说</b>：寒暄词表短路 → 指代消解改写独立问题 → Chroma Top3 且相似度 ≥ 0.3 才放行 → Prompt 明确「仅依据片段回答」。检索没命中就走兜底话术，绝不硬答。</li>
-        <li><b>三级缓存降本</b>：改写 30min / 检索 1h / 答案 1h，按各层时效性分别设 TTL。高频重复问题直接命中答案缓存，省掉 embedding + 检索 + 生成整条链路。</li>
-        <li><b>流式与可靠推送</b>：SSE 逐字推送把首字延迟从数秒降到几百毫秒；人工回复走 WebSocket，直推失败重试 3 次后落 Redis 补偿队列，客户端重连补发。</li>
-        <li><b>工单闭环</b>：状态机「待处理 → 处理中 → 已完成」，认领时校验状态防两个客服抢同一单；JWT + 拦截器统一鉴权，验证码失败次数计数防爆破。</li>
-      </ul>
-
-      <div class="links">
-        <a class="btn primary" href="https://github.com/1428001760/rag-customer-service" target="_blank" rel="noopener">查看源码 →</a>
-        <a class="btn ghost" href="https://github.com/1428001760/rag-customer-service#readme" target="_blank" rel="noopener">设计文档</a>
-      </div>
-    </article>
   </div>
 </section>
 
