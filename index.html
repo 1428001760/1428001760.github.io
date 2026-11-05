@@ -137,11 +137,11 @@
     <div class="badge">2027 届 · 本科 · <b>可提前到岗</b></div>
     <h1>彭正涛<br><span>Java 后端开发</span></h1>
     <p class="tagline">
-      以 Java 后端为主、AI 应用工程为辅。两个完整项目分别覆盖高并发交易场景与 LLM 工程落地，从需求分析到编码部署独立交付。
+      求职方向：Java 后端开发 / AI 应用开发。两个完整项目分别覆盖高并发交易场景与检索增强问答，从需求分析到编码部署独立交付。
     </p>
     <div class="meta">
       <span>📱 13107005506</span>
-      <span>✉ <a href="mailto:1428001760@qq.com">1428001760@qq.com</a></span>
+      <span>✉ <a href="mailto:13107005506@163.com">13107005506@163.com</a></span>
       <span>🎓 英语 CET-6</span>
       <span>💻 <a href="https://github.com/1428001760" target="_blank" rel="noopener">github.com/1428001760</a></span>
     </div>
@@ -178,7 +178,7 @@
 
       <ul class="hl">
         <li><b>文档治理</b>：Tika 统一解析多格式；<code>DocumentSplitters.recursive(500, 50)</code> 递归切片，500 字保语义段落完整、50 字重叠保住跨段指代；同名文档按 metadata 先删旧向量再入库，知识库不越滚越脏。</li>
-        <li><b>四道闸门防胡说</b>：寒暄词表短路 → 指代消解改写独立问题 → Chroma Top3 且相似度 ≥ 0.3 才放行 → Prompt 明确「仅依据片段回答」。检索没命中就走兜底话术，绝不硬答。</li>
+        <li><b>检索兜底防胡说</b>：寒暄词表短路 → 指代消解改写独立问题 → Chroma Top3 且相似度 ≥ 0.3 才放行 → Prompt 明确「仅依据片段回答」。检索没命中就走兜底话术，绝不硬答。</li>
         <li><b>三级缓存降本</b>：改写 30min / 检索 1h / 答案 1h，按各层时效性分别设 TTL。高频重复问题直接命中答案缓存，省掉 embedding + 检索 + 生成整条链路。</li>
         <li><b>流式与可靠推送</b>：SSE 逐字推送把首字延迟从数秒降到几百毫秒；人工回复走 WebSocket，直推失败重试 3 次后落 Redis 补偿队列，客户端重连补发。</li>
         <li><b>工单闭环</b>：状态机「待处理 → 处理中 → 已完成」，认领时校验状态防两个客服抢同一单；JWT + 拦截器统一鉴权，验证码失败次数计数防爆破。</li>
@@ -215,15 +215,14 @@
 
       <ul class="hl">
         <li><b>缓存三防</b>：Cache Aside 为主干，空值缓存防穿透、逻辑过期 + 互斥锁重建防击穿、TTL 抖动 + 预热防雪崩，三种失效场景分别下药。</li>
-        <li><b>秒杀一致性</b>：Lua 脚本把「一人一单校验 + 库存扣减 + 用户记录」压成单次原子操作，在 Redis 层挡掉绝大部分无效流量；成功后投递 MQ 异步削峰，DB 侧以 <code>stock &gt; 0</code> 条件更新兜底。</li>
-        <li><b>MQ 可靠性</b>：交换机队列持久化 + 手动 ACK + 死信队列三重保障；生产者投递失败时用第二个 Lua 脚本原子回滚库存，避免「扣了库存没生成订单」。</li>
+        <li><b>秒杀防超卖与一人一单</b>：Lua 脚本把「一人一单校验 + 库存扣减 + 用户记录」压成单次原子操作，在 Redis 层挡掉绝大部分无效流量；成功后投递 RabbitMQ 异步削峰落库，DB 侧以 <code>stock &gt; 0</code> 条件更新 + 应用层防重查询兜底。</li>
         <li><b>分布式锁演进</b>：自研 SETNX 锁 → 发现「误删他人锁」与「业务超时锁提前释放」两个坑 → 演进至 Redisson 可重入锁 + 看门狗续期，完整呈现选型思考过程。</li>
         <li><b>深分页优化</b>：用 Explain 定位到瓶颈不是扫行数而是<b>回表次数</b>，建立联合覆盖索引 + 游标分页（lastId）把 O(n) 降到 O(log n)。</li>
       </ul>
 
       <div class="links">
-        <a class="btn primary" href="https://github.com/1428001760/hm-dianping" target="_blank" rel="noopener">查看源码 →</a>
-        <a class="btn ghost" href="https://github.com/1428001760/hm-dianping#readme" target="_blank" rel="noopener">设计文档</a>
+        <a class="btn primary" href="https://github.com/1428001760/xiangwang-life" target="_blank" rel="noopener">查看源码 →</a>
+        <a class="btn ghost" href="https://github.com/1428001760/xiangwang-life#readme" target="_blank" rel="noopener">设计文档</a>
       </div>
     </article>
 
@@ -236,35 +235,35 @@
     <div class="skill-grid">
       <div class="skill">
         <h4>Java 基础</h4>
-        <p>Java SE 核心、集合框架、IO、反射与注解；理解 HashMap 扩容与树化、ConcurrentHashMap 的 CAS + synchronized 实现。</p>
+        <p>Java SE 核心语法、面向对象、集合框架、IO 与异常处理；理解 ArrayList 动态扩容机制与 List / Map 常用实现的使用场景。</p>
       </div>
       <div class="skill">
         <h4>并发编程</h4>
-        <p>JUC 常用工具，理解 CAS、AQS、锁机制、线程池参数设计与 ThreadLocal 原理及内存泄漏风险。</p>
+        <p>JUC 常用工具，理解 CAS、锁机制、线程池核心参数与执行流程、ThreadLocal 的作用。</p>
       </div>
       <div class="skill">
         <h4>开发框架</h4>
-        <p>Spring Boot、MyBatis-Plus 业务开发；理解 IoC、AOP、自动装配，能基于拦截器实现统一鉴权与 token 续期。</p>
+        <p>Spring Boot、MyBatis-Plus 业务开发；了解 IoC、AOP、自动装配基本概念，能基于拦截器实现统一鉴权与 token 续期。</p>
       </div>
       <div class="skill">
         <h4>数据库</h4>
-        <p>MySQL 事务隔离级别、MVCC 与 B+ 树索引；能用 Explain 定位慢查询，联合覆盖索引 + 游标分页优化深分页。</p>
+        <p>MySQL 常用 SQL 与索引基础；能用 Explain 查看执行计划，通过联合索引 + 游标分页优化深分页查询。</p>
       </div>
       <div class="skill">
         <h4>缓存与消息</h4>
-        <p>Redis 常用数据结构与穿透/击穿/雪崩方案；RabbitMQ 工作模型，实践过异步削峰、手动 ACK、死信兜底。</p>
+        <p>Redis 常用数据结构与穿透/击穿/雪崩的应对思路；了解 RabbitMQ 工作模型，在项目中实践过异步削峰。</p>
       </div>
       <div class="skill">
         <h4>AI 应用开发</h4>
-        <p>LangChain4j 搭建 RAG 链路：文档解析、切片、Embedding、向量检索、Prompt 工程、流式输出。</p>
+        <p>能用 LangChain4j 搭建 RAG 问答链路，包括文档解析、文本切片、向量化存储、相似度检索与流式输出。</p>
       </div>
       <div class="skill">
         <h4>工具与部署</h4>
-        <p>Git、Maven、IDEA；Linux 常用命令与 systemd 服务部署，Docker + Docker Compose 多服务编排。</p>
+        <p>熟练使用 Git、Maven、IDEA；掌握 Linux 常用命令与 systemd 服务部署，能用 Docker + Docker Compose 完成多服务编排。</p>
       </div>
       <div class="skill">
         <h4>英语</h4>
-        <p>CET-6，可阅读 Spring、Redis、LangChain4j 等框架官方英文文档与源码。</p>
+        <p>CET-6（427 分，阅读 200 / 249）。</p>
       </div>
     </div>
   </div>
@@ -274,7 +273,7 @@
   <div class="wrap">
     彭正涛 · Java 后端开发 · 2027 届　|　
     <a href="https://github.com/1428001760" target="_blank" rel="noopener">GitHub</a>　·　
-    <a href="mailto:1428001760@qq.com">1428001760@qq.com</a>
+    <a href="mailto:13107005506@163.com">13107005506@163.com</a>
   </div>
 </footer>
 
